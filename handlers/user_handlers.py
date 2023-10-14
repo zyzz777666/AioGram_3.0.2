@@ -20,6 +20,7 @@ async def process_dog_answer(message: Message):
         reply_markup=ReplyKeyboardRemove()
     )
 
+
 @router.message(Command(commands='help'))
 async def process_help_command(message: Message):
     await message.answer(text=LEXICON_RU['/help'])
