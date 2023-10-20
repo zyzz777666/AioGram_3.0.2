@@ -11,6 +11,7 @@ router = Router()
 async def process_start_command(message: Message):
     await message.answer(text=LEXICON_RU['/start'],
                          reply_markup=get_time_zodiac())
+    await message.delete()
 
 
 @router.message(Command(commands='help'))
