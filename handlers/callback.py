@@ -3,6 +3,7 @@ from aiogram.types import CallbackQuery
 from config_data.config import get_text_horoscope
 from keyboards import inline_keyboard
 from lexicon.lexicon import LEXICON_RU
+from aiogram.exceptions import TelegramBadRequest
 
 router = Router()
 day = ''
@@ -34,5 +35,8 @@ async def get_horoscope(callback: CallbackQuery):
     await callback.answer()
     zodiac = callback.data
     text = await get_text_horoscope(zodiac=zodiac, day=day)
-    await callback.message.edit_text(text=text,
-                                     reply_markup=inline_keyboard.get_zodiac_button())
+    try:
+        await callback.message.edit_text(text=text,
+                                         reply_markup=inline_keyboard.get_zodiac_button())
+    except TelegramBadRequest:
+        await callback.answer()
